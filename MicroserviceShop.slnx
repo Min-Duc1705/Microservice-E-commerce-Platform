@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="AggregatorService/AggregatorService.csproj" Id="3fc6d3a7-f7d2-4a29-9ecd-524ae1bf1f0c" />
+  <Project Path="ApiGateway/ApiGateway.csproj" />
+  <Project Path="AuthService/AuthService.csproj" Id="a0e970ef-c212-4dbd-aaab-447f8b279e5f" />
+  <Project Path="CommonService/CommonService.csproj" />
+  <Project Path="CustomerService/CustomerService.csproj" Id="2ca53b49-2df4-475b-a12e-48a27b2920e9" />
+  <Project Path="NotificationService/NotificationService.csproj" Id="a59d212d-43ea-417b-a711-78f416a514b4" />
+  <Project Path="OrderService/OrderService.csproj" />
+  <Project Path="PaymentService/PaymentService.csproj" />
+  <Project Path="ProductService/ProductService.csproj" Id="8dbda7f4-bf19-47d0-84f7-ecc51da888f7" />
+  <Project Path="ReportService/ReportService.csproj" />
+</Solution>

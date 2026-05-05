@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{{TITLE}}</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Inter", Arial, sans-serif;
+        background: #f6f7f8;
+        color: #0f172a;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .card {
+        max-width: 600px;
+        width: 100%;
+        background: #ffffff;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+      }
+
+      /* Header */
+      .header {
+        padding: 32px;
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        background: #137fec;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-icon svg {
+        width: 22px;
+        height: 22px;
+        fill: white;
+      }
+      .logo-text {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: #0f172a;
+        text-transform: uppercase;
+      }
+
+      /* Body */
+      .body {
+        padding: 48px 40px;
+      }
+      .banner {
+        width: 100%;
+        height: 180px;
+        border-radius: 12px;
+        object-fit: cover;
+        margin-bottom: 32px;
+        display: block;
+      }
+      .main-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0f172a;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+      .subtitle {
+        color: #475569;
+        text-align: center;
+        line-height: 1.7;
+        font-size: 15px;
+        margin-bottom: 32px;
+      }
+      .subtitle em {
+        font-style: normal;
+        font-weight: 600;
+        color: #137fec;
+      }
+
+      /* OTP box */
+      .otp-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 24px;
+      }
+      .otp-code {
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: 0.45em;
+        color: #137fec;
+        padding: 16px 0;
+      }
+
+      /* Timer badge */
+      .timer-badge {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .timer-badge span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 18px;
+        background: #f1f5f9;
+        border-radius: 9999px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #475569;
+      }
+
+      /* Warning box */
+      .warning {
+        background: rgba(19, 127, 236, 0.05);
+        border: 1px solid rgba(19, 127, 236, 0.12);
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .warning-icon {
+        color: #137fec;
+        font-size: 20px;
+        margin-top: 1px;
+        flex-shrink: 0;
+      }
+      .warning p {
+        font-size: 14px;
+        color: #475569;
+        line-height: 1.6;
+      }
+      .warning a {
+        color: #137fec;
+        text-decoration: none;
+      }
+      .warning a:hover {
+        text-decoration: underline;
+      }
+
+      /* Footer */
+      .footer {
+        background: #f8fafc;
+        padding: 32px 40px;
+        border-top: 1px solid #e2e8f0;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+      .footer-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 12px;
+      }
+      .footer-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #475569;
+        margin-bottom: 8px;
+      }
+      .footer-row svg {
+        width: 18px;
+        height: 18px;
+        fill: #137fec;
+        flex-shrink: 0;
+      }
+      .social {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+      }
+      .social a {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #475569;
+        transition: background 0.2s;
+      }
+      .copyright {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid #e2e8f0;
+        font-size: 10px;
+        font-weight: 600;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="card">
+
+        <!-- Logo Header -->
+        <div class="header">
+          <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+            <tr>
+              <td style="vertical-align:middle; padding-right:10px;">
+                <div style="width:40px;height:40px;border-radius:8px;text-align:center;line-height:40px;font-size:20px;font-weight:900;color:#ffffff;font-family:'Inter',Arial,sans-serif;">🛒</div>
+              </td>
+              <td style="vertical-align:middle;">
+                <span class="logo-text">E-Shop</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Main Body -->
+        <div class="body">
+          <!-- Banner image -->
+          <img
+            class="banner"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkusOWdEp-GxISR0yrNNy4BtY624slNrcF2T3Fml1pFYzyHNZOwLJdhsTfqDy8es-GBBZJbXKEJiTvplLR4b8Giy6uG3Somxkugm4Gr7n83ovOe_VC-fn2CqL-Pruqr5CsTUupeUNzq35vj8suS5fq6AzxqbhegUQANrG9kePRZIK5myxGMfqNrqhL5NYaPJoIeb1GEc85hql6leLQmkDW-5niW7VmrE6MTn2MKi4yPvnpke7S4Di7sZ03aC6h7Me8JYjRobDZp6o5"
+            alt="E-Shop security illustration"
+          />
+
+          <h1 class="main-title">{{TITLE}}</h1>
+
+          <p class="subtitle">{{SUBTITLE}}</p>
+
+          <!-- OTP Code — dùng table để căn giữa -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+            <tr>
+              <td align="center">
+                <div style="font-size:48px;font-weight:700;letter-spacing:0.45em;color:#137fec;padding:16px 0 16px 0.45em;display:inline-block;">{{OTP_CODE}}</div>
+              </td>
+            </tr>
+          </table>
+
+          <!-- Timer -->
+          <div class="timer-badge">
+            <span>
+              ⏱ Mã OTP này có hiệu lực trong vòng
+              <strong style="margin-left:3px;">5 phút</strong>.
+            </span>
+          </div>
+
+          <!-- Warning -->
+          <div class="warning">
+            <span style="font-size:20px;flex-shrink:0;">🛡️</span>
+            <p>
+              <strong>Cảnh báo bảo mật:</strong> Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này hoặc
+              <a href="#" style="color:#137fec;text-decoration:none;">liên hệ với bộ phận hỗ trợ</a> nếu bạn lo lắng về bảo mật tài khoản.
+            </p>
+          </div>
+        </div>
+
+        <!-- Footer — dùng table thay grid -->
+        <div class="footer">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+            <tr>
+              <!-- Cột trái: Hỗ trợ -->
+              <td style="vertical-align:top; padding-right:12px;">
+                <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Hỗ trợ khách hàng</div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#475569;margin-bottom:8px;">
+                  📞 Hotline: 1900 1234
+                </div>
+                <div style="font-size:13px;color:#475569;">
+                  ✉️ Email: support&#64;e-shop.vn
+                </div>
+              </td>
+              <!-- Cột phải: Social -->
+              <td style="vertical-align:middle; text-align:right;">
+                <a href="#" style="display:inline-block;width:32px;height:32px;border-radius:50%;background:#e2e8f0;text-align:center;line-height:32px;text-decoration:none;font-size:16px;margin-left:8px;">🌐</a>
+                <a href="#" style="display:inline-block;width:32px;height:32px;border-radius:50%;background:#e2e8f0;text-align:center;line-height:32px;text-decoration:none;font-size:16px;margin-left:8px;">📘</a>
+              </td>
+            </tr>
+          </table>
+          <div class="copyright">© 2024 E-SHOP PLATFORM. ALL RIGHTS RESERVED.</div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

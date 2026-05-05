@@ -1,0 +1,883 @@
+{
+  "info": {
+    "_postman_id": "b1b6e4e0-7170-4e00-a292-0b3a3c9b3a72",
+    "name": "MicroserviceShop API Ultimate v2",
+    "description": "Bộ sưu tập API siêu đầy đủ cho MicroserviceShop. Chạy qua Ocelot Gateway (Port 5000).\nTất cả các endpoint đều hỗ trợ Authorization Bearer token (được tự động lưu sau khi Login).\nBao gồm đầy đủ các kịch bản Filter, Phân trang, Tìm kiếm, Báo cáo.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0. AuthService",
+      "item": [
+        {
+          "name": "1. Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if(jsonData.data && jsonData.data.accessToken) {",
+                  "    pm.environment.set(\"jwt_token\", jsonData.data.accessToken);",
+                  "    console.log(\"Token saved to environment!\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin@shop.com\",\n  \"password\": \"Admin@123\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "2. Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"test@example.com\",\n  \"password\": \"User@123\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "3. Get Account Info",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/account",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "account"]
+            }
+          }
+        },
+        {
+          "name": "4. Update Email/Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"new_email@example.com\",\n  \"currentPassword\": \"Admin@123\",\n  \"newPassword\": \"Admin@456\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/email",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "email"]
+            }
+          }
+        },
+        {
+          "name": "5. Refresh Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/refresh",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "refresh"]
+            }
+          }
+        },
+        {
+          "name": "6. Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "1. RBAC (Roles & Permissions)",
+      "item": [
+        {
+          "name": "Permissions",
+          "item": [
+            {
+              "name": "List Permissions",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/permissions?searchTerm=&module=Orders&pageNumber=1&pageSize=20",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "permissions"],
+                  "query": [
+                    { "key": "searchTerm", "value": "" },
+                    { "key": "module", "value": "Orders" },
+                    { "key": "pageNumber", "value": "1" },
+                    { "key": "pageSize", "value": "20" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get Permission by ID",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/permissions/{{permissionId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "permissions", "{{permissionId}}"]
+                }
+              }
+            },
+            {
+              "name": "Create Permission",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Xem danh sách sản phẩm\",\n  \"apiPath\": \"/api/v1/products\",\n  \"method\": \"GET\",\n  \"module\": \"Products\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/permissions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "permissions"]
+                }
+              }
+            },
+            {
+              "name": "Update Permission",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Xem danh sách sản phẩm (Updated)\",\n  \"apiPath\": \"/api/v1/products\",\n  \"method\": \"GET\",\n  \"module\": \"Products\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/permissions/{{permissionId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "permissions", "{{permissionId}}"]
+                }
+              }
+            },
+            {
+              "name": "Delete Permission",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/permissions/{{permissionId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "permissions", "{{permissionId}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Roles",
+          "item": [
+            {
+              "name": "List Roles",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/roles?pageNumber=1&pageSize=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "roles"],
+                  "query": [
+                    { "key": "pageNumber", "value": "1" },
+                    { "key": "pageSize", "value": "10" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get Role by ID",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/roles/{{roleId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "roles", "{{roleId}}"]
+                }
+              }
+            },
+            {
+              "name": "Create Role",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"MANAGER\",\n  \"description\": \"Quản lý cửa hàng\",\n  \"permissionIds\": []\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/roles",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "roles"]
+                }
+              }
+            },
+            {
+              "name": "Update Role",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"MANAGER (Updated)\",\n  \"description\": \"Quản lý cửa hàng cập nhật\",\n  \"permissionIds\": [\"{{permissionId}}\"]\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/roles/{{roleId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "roles", "{{roleId}}"]
+                }
+              }
+            },
+            {
+              "name": "Delete Role",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/roles/{{roleId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "roles", "{{roleId}}"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2. Customer Service",
+      "item": [
+        {
+          "name": "List & Filter Customers",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/customers?searchTerm=&status=0&includeDeleted=false&pageNumber=1&pageSize=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "customers"],
+              "query": [
+                { "key": "searchTerm", "value": "" },
+                {
+                  "key": "status",
+                  "value": "0",
+                  "description": "Active=0, Blocked=1"
+                },
+                { "key": "includeDeleted", "value": "false" },
+                { "key": "pageNumber", "value": "1" },
+                { "key": "pageSize", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Customer by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/customers/{{customerId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "customers", "{{customerId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Nguyễn Văn A\",\n  \"phone\": \"0987654321\",\n  \"email\": \"nva@example.com\",\n  \"address\": \"Hà Nội\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/customers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Update Customer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Nguyễn Văn A (Updated)\",\n  \"phone\": \"0987654321\",\n  \"email\": \"nva_new@example.com\",\n  \"address\": \"TP.HCM\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/customers/{{customerId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "customers", "{{customerId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Customer",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/customers/{{customerId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "customers", "{{customerId}}"]
+            }
+          }
+        },
+        {
+          "name": "Toggle Customer Status (Block/Unblock)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "1",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/customers/{{customerId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "customers", "{{customerId}}", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Product Service",
+      "item": [
+        {
+          "name": "Categories",
+          "item": [
+            {
+              "name": "List Categories",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/categories",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "categories"]
+                }
+              }
+            },
+            {
+              "name": "Create Category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Điện tử\",\n  \"description\": \"Các sản phẩm điện máy, công nghệ\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/categories",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "categories"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Products",
+          "item": [
+            {
+              "name": "List & Filter Products",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/products?searchTerm=&categoryId=&status=0&includeDeleted=false&pageNumber=1&pageSize=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "products"],
+                  "query": [
+                    { "key": "searchTerm", "value": "" },
+                    { "key": "categoryId", "value": "" },
+                    {
+                      "key": "status",
+                      "value": "0",
+                      "description": "Active=0, Inactive=1"
+                    },
+                    { "key": "includeDeleted", "value": "false" },
+                    { "key": "pageNumber", "value": "1" },
+                    { "key": "pageSize", "value": "10" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Create Product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"iPhone 15 Pro\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"costPrice\": 25000000,\n  \"price\": 28000000,\n  \"stockQuantity\": 50,\n  \"unit\": \"cái\",\n  \"lowStockThreshold\": 5\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/products",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "products"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. Order Service",
+      "item": [
+        {
+          "name": "📋 CRUD Operations",
+          "item": [
+            {
+              "name": "Create Order",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerName\": \"Nguyễn Văn A\",\n  \"customerPhone\": \"0987654321\",\n  \"shippingAddress\": \"123 Lê Lợi, TP.HCM\",\n  \"paymentMethod\": 1,\n  \"items\": [\n    {\n      \"productId\": \"{{productId}}\",\n      \"productName\": \"iPhone 15 Pro\",\n      \"quantity\": 1,\n      \"unitPrice\": 28000000\n    }\n  ]\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders"]
+                }
+              }
+            },
+            {
+              "name": "Get Order by ID",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders/{{orderId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders", "{{orderId}}"]
+                }
+              }
+            },
+            {
+              "name": "Update Order Status",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "1",
+                  "options": { "raw": { "language": "json" } },
+                  "description": "0=New, 1=Processing, 2=Shipping, 3=Completed, 4=Cancelled"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders/{{orderId}}/status",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders", "{{orderId}}", "status"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "📄 PAGINATION & SORTING",
+          "item": [
+            {
+              "name": "List Orders (Default)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders?pageNumber=1&pageSize=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders"],
+                  "query": [
+                    { "key": "pageNumber", "value": "1" },
+                    { "key": "pageSize", "value": "10" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Sort by Date (Oldest first)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders?sortBy=createdAt&isDescending=false&pageSize=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders"],
+                  "query": [
+                    { "key": "sortBy", "value": "createdAt" },
+                    { "key": "isDescending", "value": "false" },
+                    { "key": "pageSize", "value": "10" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Sort by Customer Name (A-Z)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders?sortBy=customerName&isDescending=false&pageSize=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders"],
+                  "query": [
+                    { "key": "sortBy", "value": "customerName" },
+                    { "key": "isDescending", "value": "false" },
+                    { "key": "pageSize", "value": "10" }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "🔍 FILTERING & SEARCH",
+          "item": [
+            {
+              "name": "Filter by Status (New Only)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders?status=0&pageSize=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders"],
+                  "query": [
+                    { "key": "status", "value": "0" },
+                    { "key": "pageSize", "value": "10" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Search by Name: 'Nguyễn'",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders?searchTerm=Nguyễn&pageSize=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders"],
+                  "query": [
+                    { "key": "searchTerm", "value": "Nguyễn" },
+                    { "key": "pageSize", "value": "10" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Filter by Date Range",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders?fromDate=2025-02-01&toDate=2025-03-31&pageSize=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders"],
+                  "query": [
+                    { "key": "fromDate", "value": "2025-02-01" },
+                    { "key": "toDate", "value": "2025-03-31" },
+                    { "key": "pageSize", "value": "10" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Filter by Customer ID",
+              "request": {
+                "method": "GET",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders?customerId={{customerId}}&pageSize=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v1", "orders"],
+                  "query": [
+                    { "key": "customerId", "value": "{{customerId}}" },
+                    { "key": "pageSize", "value": "10" }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. Payment Service",
+      "item": [
+        {
+          "name": "List All Payments",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/payments?pageNumber=1&pageSize=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "payments"],
+              "query": [
+                { "key": "pageNumber", "value": "1" },
+                { "key": "pageSize", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Confirm Manual Payment (COD/Transfer)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/payments/{{paymentId}}/confirm",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "payments", "{{paymentId}}", "confirm"]
+            }
+          }
+        },
+        {
+          "name": "Refund Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refundAmount\": 500000,\n  \"note\": \"Khách hàng yêu cầu hoàn tiền 1 phần\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/payments/{{paymentId}}/refund",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "payments", "{{paymentId}}", "refund"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Report Service",
+      "item": [
+        {
+          "name": "Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reports/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "reports", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Revenue Reports (Paged)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reports/revenue?period=1&pageNumber=1&pageSize=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "reports", "revenue"],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "1",
+                  "description": "0=Daily, 1=Monthly, 2=Yearly"
+                },
+                { "key": "pageNumber", "value": "1" },
+                { "key": "pageSize", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Stock Snapshots",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reports/stock-snapshots?pageNumber=1&pageSize=20&searchTerm=&categoryName=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "reports", "stock-snapshots"],
+              "query": [
+                { "key": "pageNumber", "value": "1" },
+                { "key": "pageSize", "value": "20" },
+                { "key": "searchTerm", "value": "" },
+                { "key": "categoryName", "value": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Low Stock Products (Shortcut)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reports/stock-snapshots/low-stock?pageSize=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "reports", "stock-snapshots", "low-stock"],
+              "query": [{ "key": "pageSize", "value": "10" }]
+            }
+          }
+        },
+        {
+          "name": "Top Selling Products (Shortcut)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reports/stock-snapshots/top-selling?pageSize=10",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "v1",
+                "reports",
+                "stock-snapshots",
+                "top-selling"
+              ],
+              "query": [{ "key": "pageSize", "value": "10" }]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000", "type": "string" },
+    { "key": "jwt_token", "value": "", "type": "string" },
+    { "key": "permissionId", "value": "", "type": "string" },
+    { "key": "roleId", "value": "", "type": "string" },
+    { "key": "categoryId", "value": "", "type": "string" },
+    { "key": "productId", "value": "", "type": "string" },
+    { "key": "customerId", "value": "", "type": "string" },
+    { "key": "orderId", "value": "", "type": "string" },
+    { "key": "paymentId", "value": "", "type": "string" }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6BCC5D4C-DCFD-F350-0302-6CEEC93FCB6D}|OrderService\\OrderService.csproj|t:\\tryhard_it_project\\intern\\microserviceshop\\orderservice\\orderservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6BCC5D4C-DCFD-F350-0302-6CEEC93FCB6D}|OrderService\\OrderService.csproj|solutionrelative:orderservice\\orderservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6BCC5D4C-DCFD-F350-0302-6CEEC93FCB6D}|OrderService\\OrderService.csproj|t:\\tryhard_it_project\\intern\\microserviceshop\\orderservice\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6BCC5D4C-DCFD-F350-0302-6CEEC93FCB6D}|OrderService\\OrderService.csproj|solutionrelative:orderservice\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CA53B49-2DF4-475B-A12E-48A27B2920E9}|CustomerService\\CustomerService.csproj|t:\\tryhard_it_project\\intern\\microserviceshop\\customerservice\\consumers\\userregisteredconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CA53B49-2DF4-475B-A12E-48A27B2920E9}|CustomerService\\CustomerService.csproj|solutionrelative:customerservice\\consumers\\userregisteredconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0E970EF-C212-4DBD-AAAB-447F8B279E5F}|AuthService\\AuthService.csproj|t:\\tryhard_it_project\\intern\\microserviceshop\\authservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0E970EF-C212-4DBD-AAAB-447F8B279E5F}|AuthService\\AuthService.csproj|solutionrelative:authservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0E970EF-C212-4DBD-AAAB-447F8B279E5F}|AuthService\\AuthService.csproj|t:\\tryhard_it_project\\intern\\microserviceshop\\authservice\\models\\request\\loginrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0E970EF-C212-4DBD-AAAB-447F8B279E5F}|AuthService\\AuthService.csproj|solutionrelative:authservice\\models\\request\\loginrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0E970EF-C212-4DBD-AAAB-447F8B279E5F}|AuthService\\AuthService.csproj|t:\\tryhard_it_project\\intern\\microserviceshop\\authservice\\repository\\interface\\ipermissionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0E970EF-C212-4DBD-AAAB-447F8B279E5F}|AuthService\\AuthService.csproj|solutionrelative:authservice\\repository\\interface\\ipermissionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderService.csproj",
+              "DocumentMoniker": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\OrderService\\OrderService.csproj",
+              "RelativeDocumentMoniker": "OrderService\\OrderService.csproj",
+              "ToolTip": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\OrderService\\OrderService.csproj",
+              "RelativeToolTip": "OrderService\\OrderService.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-11T01:54:03.412Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\OrderService\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "OrderService\\Controllers\\OrdersController.cs",
+              "ToolTip": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\OrderService\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "OrderService\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAABBwDMAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-27T03:51:01.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserRegisteredConsumer.cs",
+              "DocumentMoniker": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\CustomerService\\Consumers\\UserRegisteredConsumer.cs",
+              "RelativeDocumentMoniker": "CustomerService\\Consumers\\UserRegisteredConsumer.cs",
+              "ToolTip": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\CustomerService\\Consumers\\UserRegisteredConsumer.cs",
+              "RelativeToolTip": "CustomerService\\Consumers\\UserRegisteredConsumer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T05:34:47.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\AuthService\\Program.cs",
+              "RelativeDocumentMoniker": "AuthService\\Program.cs",
+              "ToolTip": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\AuthService\\Program.cs",
+              "RelativeToolTip": "AuthService\\Program.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAABRwBoAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T03:15:39.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginRequestDTO.cs",
+              "DocumentMoniker": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\AuthService\\Models\\Request\\LoginRequestDTO.cs",
+              "RelativeDocumentMoniker": "AuthService\\Models\\Request\\LoginRequestDTO.cs",
+              "ToolTip": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\AuthService\\Models\\Request\\LoginRequestDTO.cs",
+              "RelativeToolTip": "AuthService\\Models\\Request\\LoginRequestDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T03:15:27.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IPermissionRepository.cs",
+              "DocumentMoniker": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\AuthService\\Repository\\Interface\\IPermissionRepository.cs",
+              "RelativeDocumentMoniker": "AuthService\\Repository\\Interface\\IPermissionRepository.cs",
+              "ToolTip": "T:\\TryHard_IT_Project\\Intern\\MicroserviceShop\\AuthService\\Repository\\Interface\\IPermissionRepository.cs",
+              "RelativeToolTip": "AuthService\\Repository\\Interface\\IPermissionRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T03:06:08.864Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

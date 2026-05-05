@@ -1,0 +1,131 @@
+@ProductService_HostAddress = http://localhost:5165
+
+# ============================================================
+# CATEGORIES — Loại hàng hóa (Danh mục)
+# ============================================================
+
+### GET — Lấy tất cả danh mục
+GET {{ProductService_HostAddress}}/api/v1/categories
+Accept: application/json
+
+###
+
+### GET — Lấy 1 danh mục theo ID
+GET {{ProductService_HostAddress}}/api/v1/categories/{{categoryId}}
+Accept: application/json
+
+###
+
+### POST — Tạo mới danh mục
+POST {{ProductService_HostAddress}}/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Áo sơ mi",
+  "description": "Các loại áo sơ mi nam, nữ"
+}
+
+###
+
+### PUT — Cập nhật danh mục
+PUT {{ProductService_HostAddress}}/api/v1/categories/{{categoryId}}
+Content-Type: application/json
+
+{
+  "name": "Áo sơ mi nam",
+  "description": "Áo sơ mi dành cho nam giới"
+}
+
+###
+
+### DELETE — Xóa mềm danh mục
+DELETE {{ProductService_HostAddress}}/api/v1/categories/{{categoryId}}
+Accept: application/json
+
+###
+
+# ============================================================
+# PRODUCTS — Hàng hóa
+# ============================================================
+
+### GET — Danh sách hàng hóa (có filter + phân trang)
+GET {{ProductService_HostAddress}}/api/v1/products?pageNumber=1&pageSize=10
+Accept: application/json
+
+###
+
+### GET — Tìm kiếm theo tên hoặc SKU
+GET {{ProductService_HostAddress}}/api/v1/products?searchTerm=áo&pageNumber=1&pageSize=10
+Accept: application/json
+
+###
+
+### GET — Lọc theo danh mục và trạng thái
+GET {{ProductService_HostAddress}}/api/v1/products?categoryId={{categoryId}}&status=0&sortBy=price&isDescending=true&pageNumber=1&pageSize=10
+Accept: application/json
+
+###
+
+### GET — Lấy 1 sản phẩm theo ID
+GET {{ProductService_HostAddress}}/api/v1/products/{{productId}}
+Accept: application/json
+
+###
+
+### POST — Tạo mới hàng hóa
+POST {{ProductService_HostAddress}}/api/v1/products
+Content-Type: application/json
+
+{
+  "name": "Áo sơ mi trắng nam",
+  "sku": "",
+  "description": "<p>Áo sơ mi trắng chất liệu cotton cao cấp</p>",
+  "categoryId": "{{categoryId}}",
+  "costPrice": 150000,
+  "price": 299000,
+  "stockQuantity": 100,
+  "unit": "cái",
+  "lowStockThreshold": 5,
+  "thumbnailUrl": "https://example.com/images/ao-so-mi-trang.jpg",
+  "imageUrls": [
+    "https://example.com/images/ao-so-mi-trang-1.jpg",
+    "https://example.com/images/ao-so-mi-trang-2.jpg"
+  ]
+}
+
+###
+
+### PUT — Cập nhật hàng hóa
+PUT {{ProductService_HostAddress}}/api/v1/products/{{productId}}
+Content-Type: application/json
+
+{
+  "name": "Áo sơ mi trắng nam slim fit",
+  "sku": "ASM-ABCD1234",
+  "description": "<p>Áo sơ mi trắng slim fit chất liệu cotton cao cấp</p>",
+  "categoryId": "{{categoryId}}",
+  "costPrice": 150000,
+  "price": 349000,
+  "stockQuantity": 80,
+  "unit": "cái",
+  "lowStockThreshold": 5,
+  "thumbnailUrl": "https://example.com/images/ao-so-mi-trang.jpg",
+  "imageUrls": [
+    "https://example.com/images/ao-so-mi-trang-1.jpg"
+  ]
+}
+
+###
+
+### DELETE — Xóa mềm hàng hóa
+DELETE {{ProductService_HostAddress}}/api/v1/products/{{productId}}
+Accept: application/json
+
+###
+
+### PATCH — Khóa/Mở khóa hàng hóa (chuyển trạng thái)
+# 0 = Active (Đang bán), 1 = Discontinued (Ngừng bán)
+PATCH {{ProductService_HostAddress}}/api/v1/products/{{productId}}/status
+Content-Type: application/json
+
+1

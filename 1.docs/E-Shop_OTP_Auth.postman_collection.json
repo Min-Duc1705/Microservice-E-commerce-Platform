@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "8b51d382-b7f5-47e1-b844-3dffd3933c09",
+		"name": "E-Shop OTP Authentication Flow",
+		"description": "Bộ API test luồng đăng ký (Xác minh OTP qua Email) và Quên mật khẩu.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Luồng Đăng ký & Kích hoạt",
+			"item": [
+				{
+					"name": "1. Đăng ký tài khoản (Gửi OTP)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"test_user_01\",\r\n  \"email\": \"your_test_email@gmail.com\",\r\n  \"password\": \"Password123!\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Đăng ký tài khoản mới. Trạng thái sẽ là IsEmailVerified = false. Một email chứa mã OTP sẽ được gửi về địa chỉ email này."
+					},
+					"response": []
+				},
+				{
+					"name": "2. Xác minh Email (Nhập OTP)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"your_test_email@gmail.com\",\r\n  \"otpCode\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/verify-email",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"verify-email"
+							]
+						},
+						"description": "Nhập mã OTP 6 số nhận được từ Email để kích hoạt tài khoản."
+					},
+					"response": []
+				},
+				{
+					"name": "3. Đăng nhập",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"your_test_email@gmail.com\",\r\n  \"password\": \"Password123!\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Thử đăng nhập. Nếu chưa xác minh Email sẽ báo lỗi. Nếu đã xác minh sẽ trả về Token."
+					},
+					"response": []
+				}
+			],
+			"description": "Các API dành cho luồng Đăng ký tài khoản mới và kích hoạt bằng OTP."
+		},
+		{
+			"name": "Luồng Quên Mật Khẩu",
+			"item": [
+				{
+					"name": "1. Yêu cầu gửi OTP đặt lại mật khẩu",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"your_test_email@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/send-otp-reset",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"send-otp-reset"
+							]
+						},
+						"description": "Gửi yêu cầu quên mật khẩu. OTP sẽ được sinh ra và gửi về email nếu email tồn tại và đã được kích hoạt."
+					},
+					"response": []
+				},
+				{
+					"name": "2. Đặt lại mật khẩu (Nhập OTP + MK mới)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"your_test_email@gmail.com\",\r\n  \"otpCode\": \"123456\",\r\n  \"newPassword\": \"NewPassword123!\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/reset-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"reset-password"
+							]
+						},
+						"description": "Gửi OTP cùng với mật khẩu mới. Nếu hợp lệ, mật khẩu sẽ được đổi trực tiếp mà không cần đăng nhập."
+					},
+					"response": []
+				}
+			],
+			"description": "Các API dành cho luồng khi người dùng quên mật khẩu và cần đặt lại."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5001",
+			"type": "string"
+		}
+	]
+}

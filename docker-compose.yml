@@ -1,0 +1,96 @@
+version: "3.4"
+
+# =============================================
+# NETWORK: Tất cả services dùng chung network
+# này để giao tiếp với nhau qua tên service
+# (ví dụ: Host=postgres, amqp://rabbitmq)
+# =============================================
+networks:
+  microservice_network:
+    driver: bridge
+
+services:
+
+  # -----------------------------------------------
+  # INFRASTRUCTURE: RabbitMQ (Message Broker)
+  # -----------------------------------------------
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_folder_shop
+    ports:
+      - "5600:5672"   # AMQP - gửi/nhận message
+      - "15673:15672" # Web UI - http://localhost:15673
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - microservice_network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # -----------------------------------------------
+  # INFRASTRUCTURE: PostgreSQL (Database)
+  # -----------------------------------------------
+  postgres:
+    image: postgres:15
+    container_name: postgres_folder_shop
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5555:5432" # expose ra ngoài để dùng DBeaver/pgAdmin
+    volumes:
+      - postgres_data_folder_shop:/var/lib/postgresql/data
+    networks:
+      - microservice_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # -----------------------------------------------
+  # INFRASTRUCTURE: Redis (Distributed Cache)
+  # -----------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: redis_folder_shop
+    ports:
+      - "6379:6379"
+    networks:
+      - microservice_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # -----------------------------------------------
+  # INFRASTRUCTURE: MinIO (Object Storage — ảnh, file)
+  # Web Console: http://localhost:9001 (admin/minioadmin)
+  # -----------------------------------------------
+  minio:
+    image: quay.io/minio/minio:RELEASE.2024-11-07T00-52-20Z
+    container_name: minio_folder_shop
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"   # S3 API — backend kết nối vào đây
+      - "9001:9001"   # Web Console UI
+    volumes:
+      - T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\public:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - microservice_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data_folder_shop:

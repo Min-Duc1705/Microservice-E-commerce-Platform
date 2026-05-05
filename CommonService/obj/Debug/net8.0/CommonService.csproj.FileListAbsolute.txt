@@ -1,0 +1,12 @@
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\bin\Debug\net8.0\CommonService.deps.json
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\bin\Debug\net8.0\CommonService.dll
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\bin\Debug\net8.0\CommonService.pdb
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\obj\Debug\net8.0\CommonService.csproj.AssemblyReference.cache
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\obj\Debug\net8.0\CommonService.GeneratedMSBuildEditorConfig.editorconfig
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\obj\Debug\net8.0\CommonService.AssemblyInfoInputs.cache
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\obj\Debug\net8.0\CommonService.AssemblyInfo.cs
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\obj\Debug\net8.0\CommonService.csproj.CoreCompileInputs.cache
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\obj\Debug\net8.0\CommonService.dll
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\obj\Debug\net8.0\refint\CommonService.dll
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\obj\Debug\net8.0\CommonService.pdb
+T:\TryHard_IT_Project\Intern\MicroserviceShop\CommonService\obj\Debug\net8.0\ref\CommonService.dll
